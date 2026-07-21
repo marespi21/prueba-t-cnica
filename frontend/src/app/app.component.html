@@ -1,0 +1,113 @@
+<main class="page">
+  <section class="hero">
+    <p class="eyebrow">Prueba técnica Fullstack</p>
+    <h1>Gestión de Solicitudes</h1>
+    <p>
+      Crea y edita solicitudes, filtra por estado y avanza el flujo de aprobación
+      con reglas controladas en el backend.
+    </p>
+  </section>
+
+  <section class="grid">
+    <form class="panel form" [formGroup]="requestForm" (ngSubmit)="submitForm()">
+      <div class="panel-header">
+        <h2>{{ formTitle }}</h2>
+        <button type="button" class="ghost" *ngIf="editingId" (click)="cancelEdit()">
+          Cancelar
+        </button>
+      </div>
+
+      <label>
+        Título
+        <input type="text" formControlName="title" placeholder="Ej. Transporte a cliente" />
+      </label>
+      <small *ngIf="requestForm.controls.title.touched && requestForm.controls.title.invalid">
+        El título es obligatorio.
+      </small>
+
+      <label>
+        Descripción
+        <textarea rows="4" formControlName="description" placeholder="Describe la necesidad"></textarea>
+      </label>
+      <small *ngIf="requestForm.controls.description.touched && requestForm.controls.description.invalid">
+        La descripción es obligatoria.
+      </small>
+
+      <label>
+        Tipo
+        <select formControlName="type">
+          <option value="transporte">Transporte</option>
+          <option value="permiso">Permiso</option>
+          <option value="insumo">Insumo</option>
+        </select>
+      </label>
+
+      <label>
+        Recurso
+        <input type="text" formControlName="resourceId" placeholder="Ej. vehiculo-1" />
+      </label>
+
+      <div class="dates">
+        <label>
+          Inicio
+          <input type="datetime-local" formControlName="startDate" />
+        </label>
+        <label>
+          Fin
+          <input type="datetime-local" formControlName="endDate" />
+        </label>
+      </div>
+
+      <button type="submit">{{ editingId ? 'Guardar cambios' : 'Crear solicitud' }}</button>
+    </form>
+
+    <section class="panel">
+      <div class="list-header">
+        <div>
+          <h2>Solicitudes</h2>
+          <p>Filtro reactivo por estado.</p>
+        </div>
+
+        <form [formGroup]="filterForm">
+          <select formControlName="status" aria-label="Filtrar por estado">
+            <option *ngFor="let status of statuses" [value]="status.value">
+              {{ status.label }}
+            </option>
+          </select>
+        </form>
+      </div>
+
+      <p class="feedback" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+      <p *ngIf="loading()">Cargando solicitudes...</p>
+
+      <article class="request" *ngFor="let request of requests()">
+        <div>
+          <strong>{{ request.title }}</strong>
+          <p>{{ request.description }}</p>
+          <span>{{ request.type }} · {{ request.status }} · {{ request.id }}</span>
+        </div>
+
+        <div class="actions">
+          <button
+            type="button"
+            class="secondary"
+            *ngIf="!isFinalStatus(request.status)"
+            (click)="startEdit(request)"
+          >
+            Editar
+          </button>
+          <button type="button" *ngIf="nextStatusFor(request.status)" (click)="advance(request)">
+            Avanzar
+          </button>
+          <button type="button" *ngIf="request.status === 'en_revision'" (click)="approve(request)">
+            Aprobar
+          </button>
+          <button type="button" *ngIf="request.status === 'en_revision'" (click)="reject(request)">
+            Rechazar
+          </button>
+        </div>
+      </article>
+    </section>
+  </section>
+</main>
