@@ -9,9 +9,3 @@ import { RequestsService } from './requests.service';
   providers: [RequestsService, RequestsScheduler],
 })
 export class RequestsModule {}
-
-
-//prov utilidades o serv q van a estar dispo
-// def de las rutas
-
-// boilerplate: muchas cosas que hacer o cambiar en todos archivos  para una sola cosa 

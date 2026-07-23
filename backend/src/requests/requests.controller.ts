@@ -59,7 +59,3 @@ export class RequestsController {
     this.requestsService.remove(id);
   }
 }
-
-//controlador es el que atienede a las solicitudes a cada request o petic 
-// constructor, es como algo va a inicializarse 
-//define rutas x medio de pet
