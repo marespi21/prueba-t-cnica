@@ -1,3 +1,4 @@
+/** Estados del flujo de aprobación. */
 export enum RequestStatus {
   Draft = 'borrador',
   Submitted = 'enviada',

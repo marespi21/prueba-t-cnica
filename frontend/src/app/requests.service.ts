@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { RequestItem, RequestPayload, RequestStatus } from './request.model';
 
+/** HTTP + estado de UI (lista, loading, error). */
 @Injectable({ providedIn: 'root' })
 export class RequestsService {
   private readonly apiUrl = 'http://localhost:3000/requests';

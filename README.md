@@ -148,7 +148,3 @@ También hay un test unitario de esta función.
 - Docker Compose.
 - CI con GitHub Actions.
 - Vista de conflictos de recursos en el frontend.
-
-## Cómo explicarlo en entrevista (versión corta)
-
-Separé responsabilidades: el backend concentra reglas (DTOs, estados, errores y cron); el frontend se enfoca en UX (formulario, filtro, carga y mensajes). Preferí memoria para enfocarme en lo que pedía la prueba, y documenté cómo lo evolucionaría a producción.

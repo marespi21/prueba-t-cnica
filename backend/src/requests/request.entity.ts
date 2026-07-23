@@ -1,5 +1,6 @@
 import { RequestStatus } from './request-status.enum';
 
+/** Modelo interno de una solicitud (persistencia en memoria). */
 export interface RequestEntity {
   id: string;
   title: string;

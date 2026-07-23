@@ -1,5 +1,6 @@
 import { IsDateString, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
+/** Body de creación. Validado por ValidationPipe. */
 export class CreateRequestDto {
   @IsString()
   @IsNotEmpty()

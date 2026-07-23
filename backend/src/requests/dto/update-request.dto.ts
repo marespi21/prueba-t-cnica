@@ -1,5 +1,6 @@
 import { IsDateString, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
+/** Body de actualización parcial (PATCH). */
 export class UpdateRequestDto {
   @IsOptional()
   @IsString()

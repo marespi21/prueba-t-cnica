@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestItem, RequestPayload, RequestStatus } from './request.model';
 import { RequestsService } from './requests.service';
 
+/** Pantalla principal: formulario, filtro y acciones de flujo. */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -133,6 +134,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /** Siguiente paso del botón Avanzar (UX; Nest valida la regla real). */
   nextStatusFor(status: RequestStatus): RequestStatus | null {
     const nextByStatus: Partial<Record<RequestStatus, RequestStatus>> = {
       borrador: 'enviada',
@@ -171,6 +173,7 @@ export class AppComponent implements OnInit {
     };
   }
 
+  /** ISO del API → formato datetime-local del input. */
   private toLocalInput(value?: string): string {
     if (!value) {
       return '';

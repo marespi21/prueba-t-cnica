@@ -5,6 +5,7 @@ import { BookingConflict, findResourceOverlaps, ResourceBooking } from './overla
 import { RequestEntity } from './request.entity';
 import { RequestStatus } from './request-status.enum';
 
+/** Transiciones permitidas. Array vacío = estado final. */
 const ALLOWED_TRANSITIONS: Record<RequestStatus, RequestStatus[]> = {
   [RequestStatus.Draft]: [RequestStatus.Submitted],
   [RequestStatus.Submitted]: [RequestStatus.InReview, RequestStatus.Expired],
@@ -14,6 +15,7 @@ const ALLOWED_TRANSITIONS: Record<RequestStatus, RequestStatus[]> = {
   [RequestStatus.Expired]: [],
 };
 
+/** Reglas de negocio y almacenamiento en memoria. */
 @Injectable()
 export class RequestsService {
   private readonly expirationMinutes = 60;
@@ -51,6 +53,7 @@ export class RequestsService {
     return request;
   }
 
+  /** Toda solicitud nueva nace en borrador. */
   create(dto: CreateRequestDto): RequestEntity {
     this.validateDateRange(dto.startDate, dto.endDate);
 
@@ -91,6 +94,7 @@ export class RequestsService {
     this.requests = this.requests.filter((request) => request.id !== id);
   }
 
+  /** Rechaza transiciones fuera de ALLOWED_TRANSITIONS. */
   changeStatus(id: string, nextStatus: RequestStatus): RequestEntity {
     const request = this.findOne(id);
     const allowedStatuses = ALLOWED_TRANSITIONS[request.status];
@@ -111,6 +115,7 @@ export class RequestsService {
     return updatedRequest;
   }
 
+  /** Usado por el cron: marca como vencidas las solicitudes viejas. */
   markExpiredRequests(): RequestEntity[] {
     const now = new Date();
     const expiredRequests: RequestEntity[] = [];

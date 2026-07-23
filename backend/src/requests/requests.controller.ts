@@ -17,21 +17,23 @@ import { RequestEntity } from './request.entity';
 import { RequestStatus } from './request-status.enum';
 import { RequestsService } from './requests.service';
 
+/** Endpoints REST de /requests. Delega la lógica al service. */
 @Controller('requests')
 export class RequestsController {
   constructor(private readonly requestsService: RequestsService) {}
 
-  @Get()
+  @Get() // /requests/?status=open
   findAll(@Query('status') status?: RequestStatus): RequestEntity[] {
     return this.requestsService.findAll(status);
   }
 
-  @Get('conflicts')
+  /** Debe ir antes de :id para no confundir "conflicts" con un id. */
+  @Get('conflicts') // /requests/conflicts
   findConflicts(): BookingConflict[] {
     return this.requestsService.findResourceConflicts();
   }
 
-  @Get(':id')
+  @Get(':id') // /requests/123
   findOne(@Param('id') id: string): RequestEntity {
     return this.requestsService.findOne(id);
   }
@@ -57,3 +59,7 @@ export class RequestsController {
     this.requestsService.remove(id);
   }
 }
+
+//controlador es el que atienede a las solicitudes a cada request o petic 
+// constructor, es como algo va a inicializarse 
+//define rutas x medio de pet

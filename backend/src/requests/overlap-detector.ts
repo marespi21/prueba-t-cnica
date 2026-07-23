@@ -15,8 +15,7 @@ export interface BookingConflict {
 
 /**
  * Detecta solapamientos del mismo recurso.
- * Idea: ordenar por recurso + fechaInicio y comparar cada reserva
- * solo con las que todavía están activas.
+ * Ordena por recurso + inicio y compara con reservas aún activas.
  */
 export function findResourceOverlaps(bookings: ResourceBooking[]): BookingConflict[] {
   const sortedBookings = [...bookings].sort((first, second) => {

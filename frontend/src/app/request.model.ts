@@ -1,3 +1,4 @@
+/** Estados alineados con el API Nest. */
 export type RequestStatus =
   | 'borrador'
   | 'enviada'
@@ -6,6 +7,7 @@ export type RequestStatus =
   | 'rechazada'
   | 'vencida';
 
+/** Solicitud completa (respuesta del backend). */
 export interface RequestItem {
   id: string;
   title: string;
@@ -19,6 +21,7 @@ export interface RequestItem {
   updatedAt: string;
 }
 
+/** Payload de create/update (sin id ni status). */
 export interface RequestPayload {
   title: string;
   description: string;
